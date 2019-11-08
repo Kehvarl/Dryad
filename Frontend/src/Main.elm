@@ -20,7 +20,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( { value = "" }, Cmd.none )
+    ( { value = "Hello World." }, Cmd.none )
 
 
 
@@ -36,8 +36,8 @@ type Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update _ _ =
-    ( { value = "" }, Cmd.none )
+update _ model =
+    ( model, Cmd.none )
 
 
 
