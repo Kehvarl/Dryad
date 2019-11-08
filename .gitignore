@@ -1,4 +1,8 @@
 # elm-package generated files
-elm-stuff
+Frontend/elm-stuff
 # elm-repl generated files
-repl-temp-*
+Frontend/repl-temp-*
+Frontend/build
+Frontend/emjutsu.*
+
+
