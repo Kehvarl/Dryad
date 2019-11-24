@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (..)
+import Html.Attributes exposing (class)
 import Http
 import Json.Decode exposing (Decoder, field, list, string)
 
@@ -40,9 +41,17 @@ type Msg
     | GotChat (Result Http.Error Chat)
 
 
+type alias UPost =
+    { utag : String
+    , user : String
+    , msg : String
+    , time : String
+    }
+
+
 type alias Chat =
     { room : String
-    , posts : List String
+    , posts : List UPost
     }
 
 
@@ -57,8 +66,9 @@ update msg model =
                 Ok chat ->
                     ( Success chat, Cmd.none )
 
-                Err _ ->
-                    ( Failure, Cmd.none )
+                Err error ->
+                    Debug.log (Debug.toString error)
+                        ( Failure, Cmd.none )
 
 
 getChatPosts : Cmd Msg
@@ -73,7 +83,16 @@ chatDecoder : Decoder Chat
 chatDecoder =
     Json.Decode.map2 Chat
         (field "room" string)
-        (field "posts" (list string))
+        (field "posts" (list postDecoder))
+
+
+postDecoder : Decoder UPost
+postDecoder =
+    Json.Decode.map4 UPost
+        (field "tag" string)
+        (field "username" string)
+        (field "message" string)
+        (field "time" string)
 
 
 
@@ -93,6 +112,19 @@ view model =
             { title = value.room, body = [ Html.ul [] <| List.map viewPosts value.posts ] }
 
 
-viewPosts : String -> Html Msg
+viewPosts : UPost -> Html Msg
 viewPosts post =
-    Html.li [] [ text post ]
+    Html.li []
+        [ span
+            [ class "tag" ]
+            [ text (post.utag ++ " ") ]
+        , span
+            [ class "username" ]
+            [ text (post.user ++ ": ") ]
+        , span
+            [ class "message" ]
+            [ text post.msg ]
+        , span
+            [ class "time" ]
+            [ text (" - " ++ post.time) ]
+        ]

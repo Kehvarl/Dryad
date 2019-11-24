@@ -1,0 +1,26 @@
+body
+{
+  color: #008080;
+  background-color: #c0c0c0;
+}
+
+.tag
+{
+  font-size: smaller;
+}
+
+.username
+{
+  font-style: oblique;
+}
+
+.message
+{
+
+}
+
+.time
+{
+  font-size: smaller;
+  font-variant: small-caps;
+}
