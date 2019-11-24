@@ -8,6 +8,30 @@ import Json.Decode exposing (Decoder, field, list, string)
 
 
 
+--MODEL
+
+
+type alias UPost =
+    { utag : String
+    , user : String
+    , msg : String
+    , time : String
+    }
+
+
+type alias Chat =
+    { room : String
+    , posts : List UPost
+    }
+
+
+type Model
+    = Failure
+    | Loading String
+    | Success Chat
+
+
+
 --MAIN
 
 
@@ -23,36 +47,16 @@ main =
 
 init : String -> ( Model, Cmd Msg )
 init room =
-    ( Loading room, getChatPosts )
+    ( Loading room, getChatPosts room )
 
 
 
 --UPDATE
 
 
-type Model
-    = Failure
-    | Loading String
-    | Success Chat
-
-
 type Msg
     = NoOp
     | GotChat (Result Http.Error Chat)
-
-
-type alias UPost =
-    { utag : String
-    , user : String
-    , msg : String
-    , time : String
-    }
-
-
-type alias Chat =
-    { room : String
-    , posts : List UPost
-    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -71,10 +75,10 @@ update msg model =
                         ( Failure, Cmd.none )
 
 
-getChatPosts : Cmd Msg
-getChatPosts =
+getChatPosts : String -> Cmd Msg
+getChatPosts room =
     Http.get
-        { url = "http://localhost/Main.php"
+        { url = "http://localhost/Main.php?room=" ++ room
         , expect = Http.expectJson GotChat chatDecoder
         }
 
@@ -109,7 +113,15 @@ view model =
             text ("Loading " ++ chat)
 
         Success value ->
-            Html.div [] <| List.map viewPosts value.posts
+            viewChat value.room value.posts
+
+
+viewChat : String -> List UPost -> Html Msg
+viewChat room uPostList =
+    Html.div []
+        [ Html.span [ class "roon" ] [ text room ]
+        , Html.div [ class "display" ] <| List.map viewPosts uPostList
+        ]
 
 
 viewPosts : UPost -> Html Msg

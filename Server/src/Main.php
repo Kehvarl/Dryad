@@ -41,5 +41,10 @@ $posts = [
   new uPost ("SYSTEM", "System alert", "SYSTEM")
 ];
 
-echo json_encode(array("room"=>"Main", "posts"=>$posts));
+if(isset($_REQUEST['room']))
+  $room = $_REQUEST['room'];
+else
+  $room = "NONE";
+
+echo json_encode(array("room"=>$room, "posts"=>$posts));
  ?>
