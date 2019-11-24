@@ -2,14 +2,16 @@
 class uPost
 {
   public $tag;
+  public $color;
   public $username;
   public $message;
   public $time;
   public $ip;
 
-  public function __construct($username, $message, $tag="")
+  public function __construct($color, $username, $message, $tag="")
   {
     $this->tag = $tag;
+    $this->color = $color;
     $this->username = $username;
     $this->message = $message;
     $this->time = date(DATE_W3C, time());
@@ -20,6 +22,7 @@ class uPost
   {
     $ret = array(
       "tag"	=>$this->tag,
+      "color"	=>$this->color,
       "user"	=>$this->username,
       "msg"	=>$this->message,
       "time"	=>$this->time
@@ -33,12 +36,12 @@ class uPost
 }
 
 $posts = [
-  new uPost ("Kehvarl", "Hello World"),
-  new uPost ("Kehvarl", "Another World", "GM"),
-  new uPost ("Kehvarl", "This is a sample post", "ADMIN"),
-  new uPost ("Kehvarl", "And another"),
-  new uPost ("Kehvarl", "Even more!", "GM"),
-  new uPost ("SYSTEM", "System alert", "SYSTEM")
+  new uPost ("#000080", "Kehvarl", "Hello World"),
+  new uPost ("#000080", "Kehvarl", "Another World", "GM"),
+  new uPost ("#000080", "Kehvarl", "This is a sample post", "ADMIN"),
+  new uPost ("#000080", "Kehvarl", "And another"),
+  new uPost ("#000080", "Kehvarl", "Even more!", "GM"),
+  new uPost ("#000080", "SYSTEM", "System alert", "SYSTEM")
 ];
 
 if(isset($_REQUEST['room']))

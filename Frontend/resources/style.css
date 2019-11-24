@@ -11,17 +11,17 @@ body
 
 .SYSTEM
 {
-  color: #000000;
+  color: #000000 !important;
 }
 
 .ADMIN
 {
-  color: #800000;
+  color: #800000 !important;
 }
 
 .GM
 {
-  color: #00ffff;
+  color: #c04000 !important;
 }
 
 .username

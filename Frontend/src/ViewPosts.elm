@@ -13,6 +13,7 @@ import Json.Decode exposing (Decoder, field, list, string)
 
 type alias UPost =
     { utag : String
+    , ucolor : String
     , user : String
     , msg : String
     , time : String
@@ -92,8 +93,9 @@ chatDecoder =
 
 postDecoder : Decoder UPost
 postDecoder =
-    Json.Decode.map4 UPost
+    Json.Decode.map5 UPost
         (field "tag" string)
+        (field "color" string)
         (field "username" string)
         (field "message" string)
         (field "time" string)
@@ -126,7 +128,7 @@ viewChat room uPostList =
 
 viewPosts : UPost -> Html Msg
 viewPosts post =
-    Html.div [ class post.utag ]
+    Html.div [ class post.utag, Html.Attributes.style "color" post.ucolor ]
         [ span
             [ class "username" ]
             [ text (post.user ++ ": ") ]
