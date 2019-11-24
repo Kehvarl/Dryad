@@ -33,8 +33,12 @@ class uPost
 }
 
 $posts = [
-  new uPost ("Test", "Hello World"),
-  new uPost ("Test", "Another World", "ADMIN")
+  new uPost ("Kehvarl", "Hello World"),
+  new uPost ("Kehvarl", "Another World", "GM"),
+  new uPost ("Kehvarl", "This is a sample post", "ADMIN"),
+  new uPost ("Kehvarl", "And another"),
+  new uPost ("Kehvarl", "Even more!", "GM"),
+  new uPost ("SYSTEM", "System alert", "SYSTEM")
 ];
 
 echo json_encode(array("room"=>"Main", "posts"=>$posts));

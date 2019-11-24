@@ -9,6 +9,21 @@ body
   font-size: smaller;
 }
 
+.SYSTEM
+{
+  color: #000000;
+}
+
+.ADMIN
+{
+  color: #800000;
+}
+
+.GM
+{
+  color: #00ffff;
+}
+
 .username
 {
   font-style: oblique;

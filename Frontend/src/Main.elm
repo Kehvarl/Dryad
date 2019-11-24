@@ -109,16 +109,13 @@ view model =
             { title = "", body = [ text "Loading" ] }
 
         Success value ->
-            { title = value.room, body = [ Html.ul [] <| List.map viewPosts value.posts ] }
+            { title = value.room, body = [ Html.div [] <| List.map viewPosts value.posts ] }
 
 
 viewPosts : UPost -> Html Msg
 viewPosts post =
-    Html.li []
+    Html.div [ class post.utag ]
         [ span
-            [ class "tag" ]
-            [ text (post.utag ++ " ") ]
-        , span
             [ class "username" ]
             [ text (post.user ++ ": ") ]
         , span
@@ -127,4 +124,7 @@ viewPosts post =
         , span
             [ class "time" ]
             [ text (" - " ++ post.time) ]
+        , span
+            [ class "tag" ]
+            [ text (" " ++ post.utag) ]
         ]
