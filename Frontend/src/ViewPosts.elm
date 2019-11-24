@@ -1,4 +1,4 @@
-module Main exposing (..)
+module ViewPosts exposing (..)
 
 import Browser
 import Html exposing (..)
@@ -11,9 +11,9 @@ import Json.Decode exposing (Decoder, field, list, string)
 --MAIN
 
 
-main : Program () Model Msg
+main : Program String Model Msg
 main =
-    Browser.document
+    Browser.element
         { init = init
         , view = view
         , update = update
@@ -21,9 +21,9 @@ main =
         }
 
 
-init : () -> ( Model, Cmd Msg )
-init () =
-    ( Loading, getChatPosts )
+init : String -> ( Model, Cmd Msg )
+init room =
+    ( Loading room, getChatPosts )
 
 
 
@@ -32,7 +32,7 @@ init () =
 
 type Model
     = Failure
-    | Loading
+    | Loading String
     | Success Chat
 
 
@@ -99,17 +99,17 @@ postDecoder =
 --VIEW
 
 
-view : Model -> Browser.Document Msg
+view : Model -> Html Msg
 view model =
     case model of
         Failure ->
-            { title = "", body = [ text "ERROR" ] }
+            text "ERROR"
 
-        Loading ->
-            { title = "", body = [ text "Loading" ] }
+        Loading chat ->
+            text ("Loading " ++ chat)
 
         Success value ->
-            { title = value.room, body = [ Html.div [] <| List.map viewPosts value.posts ] }
+            Html.div [] <| List.map viewPosts value.posts
 
 
 viewPosts : UPost -> Html Msg

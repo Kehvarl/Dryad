@@ -9,10 +9,14 @@
 </head>
 
 <body>
+    <div id="viewPosts"></div>
 </body>
 
 <script type="text/javascript">
-var app = Elm.Main.init();
+var app = Elm.ViewPosts.init({
+        node: document.getElementById("viewPosts"),
+        flags: "Main"
+    });
 
 </script>
 
